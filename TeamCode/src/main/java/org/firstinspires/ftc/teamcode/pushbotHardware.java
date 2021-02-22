@@ -49,7 +49,8 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * See PushbotTeleopTank_Iterative and others classes starting with "Pushbot" for usage examples.
  *
  * This hardware class assumes the following device names have been configured on the robot:
- * Note:  All names are lower case and some have single spaces between words.
+ * Note:  All names are lower case and some have s
+ * ingle spaces between words.
  *
  * Motor channel:  Left  drive motor:        "left_drive"
  * Motor channel:  Right drive motor:        "right_drive"
@@ -64,8 +65,6 @@ public class pushbotHardware {
 
     public Servo pinwheel1;       //right intake to straighten ring
     public Servo pinwheel2;       //left intake to straighten ring
-    public Servo pinwheel3;       // bottom pinwheel???
-    public Servo pinwheel4;
 
     public DcMotor pulley;      //pulley to lift for shooter
 
@@ -112,8 +111,6 @@ public class pushbotHardware {
         // Define and Initialize Servos
         pinwheel1 = hardwareMap.servo.get("pinwheel1");
         pinwheel2 = hardwareMap.servo.get("pinwheel2");
-        pinwheel3 = hardwareMap.servo.get("pinwheel3");
-        pinwheel4 = hardwareMap.servo.get("pinwheel4");
 
         claw = hardwareMap.servo.get("claw");
 

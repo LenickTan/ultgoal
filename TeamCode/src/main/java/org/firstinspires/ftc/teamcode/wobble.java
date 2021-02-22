@@ -36,12 +36,12 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name="wobble", group="Iterative Opmode")
-public class wobble extends OpMode
-
-{
+public class wobble extends OpMode {
+    boolean changed = false;
     public Servo lift;  //wobble goal lifter
     public Servo lift2;
     public Servo lift3;
+    public Servo flicker; //pushes ring to shooter
 
     public Servo claw; //wobble goal clasp/claw
 
@@ -50,38 +50,87 @@ public class wobble extends OpMode
     public void init() {
 
         lift = hardwareMap.servo.get("lift");
-        lift2= hardwareMap.servo.get("lift2");
-        lift3= hardwareMap.servo.get("lift3");
+        lift2 = hardwareMap.servo.get("lift2");
+        lift3 = hardwareMap.servo.get("lift3");
 
         claw = hardwareMap.servo.get("claw");
 
-        //flicker = hardwareMap.servo.get("flicker");
+        flicker = hardwareMap.servo.get("flicker");
     }
+
     @Override
     public void loop() {
         //GAMEPAD 1 ------------------------------------------
 
         //wobble goal
-        if (gamepad2.a) {
+        //WOBBLE GOAL-------------------------------
+        //41 degrees???
+        //servo goes all the way up
+       if (gamepad2.a) {
             lift.setPosition(1);
-            lift2.setPosition(1);
-            lift3.setPosition(1);
+            //lift2.setPosition(1);
+            //lift3.setPosition(1);
         }
 
+        //180 degrees
+        //servo keeps going down
         if (gamepad2.b) {
             lift.setPosition(0);
-            lift2.setPosition(0);
-            lift3.setPosition(0);
+            //lift2.setPosition(0.5);
+            //lift3.setPosition(0.5);
         }
 
-       if (gamepad1.x) {
-           claw.setPosition(1);
-       }
-       if (gamepad2.y) {
-           claw.setPosition(0);
-       }
+        //back to set position
+        //servo went all the way up?
+        if (gamepad2.x) {
+            lift.setPosition(0.5);
+            //lift2.setPosition(0);
+            //lift3.setPosition(0);
+        }
 
-       }
+
+
+/*
+        if((gamepad1.right_trigger) >0.1) {
+           lift.setPosition(lift.getPosition() + 0.1);
+            lift2.setPosition(lift2.getPosition() + 0.1);
+            lift3.setPosition(lift3.getPosition() - 0.1);
+
+        } else if ((gamepad1.left_trigger) >0.1) {
+            lift.setPosition(lift.getPosition() - 0.1);
+            lift2.setPosition(lift.getPosition() - 0.1);
+            lift3.setPosition(lift3.getPosition() + 0.1);
+
+
+        } else {
+            lift.setPosition(0.5);
+            lift2.setPosition(0.5);
+            lift3.setPosition(0.5);
+
+        }
+*/
+
+        //open close claw
+        if (gamepad1.y && !changed) {
+            if(claw.getPosition() ==0 )
+            claw.setPosition(0.99);
+            else {
+                claw.setPosition(0);
+            }
+            changed = true;
+        } else if (!gamepad1.y) {
+            changed = false;
+        }
+
+        //flicker moves back and forth 90 degrees continuous??????
+        if ((gamepad1.right_bumper) ) {
+            flicker.setPosition(flicker.getPosition() + 0.1);
+        } else if ((gamepad1.left_bumper) ) {
+            flicker.setPosition(flicker.getPosition() - 0.1);
+        } else {
+            flicker.setPosition(0.5);
+        }
 
     }
 
+    }
