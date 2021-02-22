@@ -436,8 +436,6 @@ public class TestAuto extends LinearOpMode {
 
 
 
-
-
     /**
      * Perform one cycle of closed loop heading control.
      *
