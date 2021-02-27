@@ -124,9 +124,9 @@ public class TestAuto extends LinearOpMode {
     BNO055IMU imu;
     //ModernRoboticsI2cGyro   gyro    = null;                    // Additional Gyro device
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
+    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder (was 1140)
     static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+    static final double     WHEEL_DIAMETER_INCHES   = 6.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
 
@@ -192,26 +192,22 @@ public class TestAuto extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         // Put a hold after each turn
+        //note: 250 per tile 1240 aprox 90 degrees/
 
-        sleep(1000); //lift wobble goal?
+        driveForward(.50, false); //forward 3 tiles
+        sleep(100);
 
-        driveForward(.50, false); //drive forward for 3 sec to depot station thing
-        sleep(3000);
+        turn(.50, true); //turns to drop wobble goal
+        sleep(1240);
 
-        turn(.2, true); //turn right for 0.5 secs to drop off wobble
-        sleep(5000);
+        driveForward(.50, false); //drives forward
+        sleep(300);
 
-        driveForward(.50, true); //drive forward for 3 seconds
-        sleep(3000);
+        turn(.50, false); //turn and shoot rings
+        sleep(1240);
 
-        turn(.2, false); //turn to shoot rings
-        sleep(3000);
-
-        driveForward(.50, true); //park?????
-        sleep(5000);
-
-
-
+        driveForward(.50, false); //park?????
+        sleep(250);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
