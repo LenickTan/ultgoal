@@ -197,17 +197,35 @@ public class TestAuto extends LinearOpMode {
         driveForward(.50, false); //forward 3 tiles
         sleep(100);
 
+        driveForward(0, false); //sleep
+        sleep(100);
+
         turn(.50, true); //turns to drop wobble goal
         sleep(1240);
+
+        driveForward(0, false); //sleep
+        sleep(100);
 
         driveForward(.50, false); //drives forward
         sleep(300);
 
+        driveForward(0, false); //sleep
+        sleep(100);
+
         turn(.50, false); //turn and shoot rings
         sleep(1240);
 
+        shootRing(1);    //shoot ring????
+        sleep(100);
+
+        driveForward(0, false); //sleep
+        sleep(100);
+
         driveForward(.50, false); //park?????
         sleep(250);
+
+        driveForward(0, false); //sleep
+        sleep(100);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -428,6 +446,7 @@ public class TestAuto extends LinearOpMode {
         robot.shooter.setPower(speed);
         robot.shooter2.setPower(speed);
     }
+
 
 
 

@@ -73,7 +73,7 @@ public class pushbotHardware {
     public DcMotor rightFront;
     public DcMotor rightBack;
 
-    public Servo lift;  //wobble goal lifter
+    public Servo lift1;  //wobble goal lifter
     public Servo lift2;
     public Servo lift3;
 
@@ -114,13 +114,17 @@ public class pushbotHardware {
 
         claw = hardwareMap.servo.get("claw");
 
-        lift = hardwareMap.servo.get("lift");
+        lift1 = hardwareMap.servo.get("lift");
         lift2= hardwareMap.servo.get("lift2");
         lift3= hardwareMap.servo.get("lift3");
 
         flicker = hardwareMap.servo.get("flicker");
 
         //Reversing motors and servos
+        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        shooter.setDirection(DcMotorSimple.Direction.REVERSE);
+        shooter2.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
 

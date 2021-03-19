@@ -40,8 +40,9 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp(name="teleop", group="Iterative Opmode")
 public class teleop extends OpMode
 
+
 {
-    boolean changed = false;
+    boolean changed = false; //for the claw
     double shooterPower = 0;    //power for shooter
     double pulleyPower = 0;     //power for pulley
     double intakePower = 0;     //power for intake
@@ -63,7 +64,7 @@ public class teleop extends OpMode
     public Servo pinwheel1;       //right intake to straighten ring
     public Servo pinwheel2;       //left intake to straighten ring
 
-    public Servo lift;  //wobble goal lifter
+    public Servo lift1;  //wobble goal lifter
     public Servo lift2;
     public Servo lift3;
 
@@ -89,12 +90,14 @@ public class teleop extends OpMode
         rightBack = hardwareMap.dcMotor.get("rightBack");
         rightFront = hardwareMap.dcMotor.get("rightFront");
 
-        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+       rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        lift = hardwareMap.servo.get("lift");
+
+        lift1 = hardwareMap.servo.get("lift1");
         lift2= hardwareMap.servo.get("lift2");
         lift3= hardwareMap.servo.get("lift3");
+
 
         intake = hardwareMap.dcMotor.get("intake");
 
@@ -169,6 +172,7 @@ public class teleop extends OpMode
             pinwheel2.setPosition(0.5);
             pinwheel1.setPosition(0.5);
         }
+
         //powers intake
         if (Math.abs(gamepad1.left_trigger) > .1) {
             intakePower = -1;
@@ -190,31 +194,29 @@ public class teleop extends OpMode
         }
 
         //WOBBLE GOAL-------------------------------
-        //41 degrees???
 
         //UNDER REVISION
-      if (gamepad2.a) {
-            lift.setPosition(0);
-            lift2.setPosition(0);
-            lift3.setPosition(0);
-        }
-
-        //180 degrees
-        if (gamepad2.b) {
-            lift.setPosition(1);
+      if (gamepad1.a) {
+            lift1.setPosition(1);
             lift2.setPosition(1);
             lift3.setPosition(1);
         }
 
-        //back to set position
-        if (gamepad2.x) {
-            lift.setPosition(0.5);
-            lift2.setPosition(0.5);
+
+        if (gamepad1.b) {
+            lift1.setPosition(0);
+            lift2.setPosition(0);
+            lift3.setPosition(0);
+        }
+
+        if (gamepad1.x) {
+            lift1.setPosition(0.6);
+            lift2.setPosition(0.4);
             lift3.setPosition(0.5);
         }
 
         //open close claw
-        if (gamepad2.y && !changed) {
+        if (gamepad1.y && !changed) {
             if(claw.getPosition() ==0 )
             claw.setPosition(0.99);
             else {
@@ -225,8 +227,6 @@ public class teleop extends OpMode
             changed = false;
         }
 
-
-
         shooter.setPower(shooterPower);
         shooter2.setPower(shooterPower);
 
@@ -236,6 +236,7 @@ public class teleop extends OpMode
 
        leftBack.setPower((x - y - z)*.75);
         leftFront.setPower((-x - y -z)*.75);
+
         rightBack.setPower((-x - y + z)*.75);
         rightFront.setPower((x - y + z)*.75);
 

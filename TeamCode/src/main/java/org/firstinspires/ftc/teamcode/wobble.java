@@ -61,7 +61,7 @@ public class wobble extends OpMode {
     @Override
     public void loop() {
         //GAMEPAD 1 ------------------------------------------
-
+/*
         //wobble goal
         //WOBBLE GOAL-------------------------------
         //41 degrees???
@@ -87,11 +87,10 @@ public class wobble extends OpMode {
             //lift2.setPosition(0);
             //lift3.setPosition(0);
         }
+*/
 
 
-
-/*
-        if((gamepad1.right_trigger) >0.1) {
+       if((gamepad1.right_trigger) >0.1) {
            lift.setPosition(lift.getPosition() + 0.1);
             lift2.setPosition(lift2.getPosition() + 0.1);
             lift3.setPosition(lift3.getPosition() - 0.1);
@@ -108,7 +107,6 @@ public class wobble extends OpMode {
             lift3.setPosition(0.5);
 
         }
-*/
 
         //open close claw
         if (gamepad1.y && !changed) {
